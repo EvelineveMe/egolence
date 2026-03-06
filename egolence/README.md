@@ -1,0 +1,1 @@
+Egolence V1 – initialized

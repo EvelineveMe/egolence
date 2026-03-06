@@ -1,0 +1,128 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+LOCKFILE="/tmp/eve8_exec.lock"
+exec 9>"$LOCKFILE" || exit 1
+flock -n 9 || exit 0
+
+WORKSPACE="/root/.openclaw/workspace"
+PROJECTS_DIR="$WORKSPACE/life/projects"
+ACTIVE_FILE="$PROJECTS_DIR/_active.json"
+TODAY_FILE="$WORKSPACE/memory/$(date -u +%Y-%m-%d).md"
+
+# Ensure today file exists
+if [ ! -f "$TODAY_FILE" ]; then
+  touch "$TODAY_FILE"
+  chmod 600 "$TODAY_FILE"
+fi
+
+# Validate active file
+[ -f "$ACTIVE_FILE" ] || exit 0
+ACTIVE_SLUG=$(jq -r '.[0] // empty' "$ACTIVE_FILE")
+[ -n "$ACTIVE_SLUG" ] || exit 0
+
+PROJECT_DIR="$PROJECTS_DIR/$ACTIVE_SLUG"
+QUEUE_FILE="$PROJECT_DIR/next_actions.txt"
+BACKLOG_FILE="$PROJECT_DIR/backlog.md"
+ITEMS_FILE="$PROJECT_DIR/items.json"
+
+[ -d "$PROJECT_DIR" ] || exit 1
+[ -f "$QUEUE_FILE" ] || exit 0
+
+# Ensure backlog exists + locked permissions
+touch "$BACKLOG_FILE"
+chmod 600 "$BACKLOG_FILE"
+
+ACTION=$(head -n 1 "$QUEUE_FILE")
+[ -n "$ACTION" ] || exit 0
+
+TS=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+
+BLOCK_REASON=""
+
+# ---- STRICT VALIDATION ----
+
+if echo "$ACTION" | grep -E "(;|&&|\|\||\||>|<|<<|>>|\\|\$\(|\`)" >/dev/null; then
+  BLOCK_REASON="Chaining or redirection detected"
+fi
+
+if echo "$ACTION" | grep -E "(sudo|apt|yum|brew|systemctl|service|reboot|shutdown)" >/dev/null; then
+  BLOCK_REASON="System-level operation blocked"
+fi
+
+if echo "$ACTION" | grep -E "rm -rf" >/dev/null; then
+  BLOCK_REASON="rm -rf permanently blocked"
+fi
+
+ABS_PATHS=$(echo "$ACTION" | grep -oE "/[^ ]+" || true)
+for p in $ABS_PATHS; do
+  if [[ "$p" != "$WORKSPACE"* ]]; then
+    BLOCK_REASON="Absolute path outside workspace"
+  fi
+done
+
+if [ -n "$BLOCK_REASON" ]; then
+  echo "$TS BLOCKED: $ACTION — $BLOCK_REASON" >> "$TODAY_FILE"
+  echo "- BLOCKED $TS: $ACTION — $BLOCK_REASON" >> "$BACKLOG_FILE"
+
+  if ! tail -n +2 "$QUEUE_FILE" > "$QUEUE_FILE.tmp"; then
+    echo "$TS POP_FAIL: Unable to remove blocked action" >> "$TODAY_FILE"
+    exit 1
+  fi
+  mv "$QUEUE_FILE.tmp" "$QUEUE_FILE" || {
+    echo "$TS POP_FAIL: Move failed" >> "$TODAY_FILE"
+    exit 1
+  }
+
+  exit 0
+fi
+
+# ---- SAFE EXECUTION ----
+
+LOG_OUTPUT=$(bash -c "$ACTION" 2>&1 || true)
+
+# Ensure items.json exists + valid
+if [ ! -f "$ITEMS_FILE" ] || ! jq empty "$ITEMS_FILE" >/dev/null 2>&1; then
+  echo "[]" > "$ITEMS_FILE"
+fi
+
+TMP_FILE=$(mktemp)
+
+jq \
+  --arg id "fx_${TS}_exec" \
+  --arg ts "$TS" \
+  --arg subject "$ACTIVE_SLUG" \
+  --arg object "$ACTION" \
+  '. += [{
+    id: $id,
+    ts: $ts,
+    type: "task",
+    subject: $subject,
+    predicate: "executed",
+    object: $object,
+    status: "active",
+    supersedes: [],
+    source: { channel: "executor", chat_id: "system", message_id: "auto" },
+    confidence: 1.0
+  }]' \
+  "$ITEMS_FILE" > "$TMP_FILE" && mv "$TMP_FILE" "$ITEMS_FILE"
+
+echo "$TS EXECUTED: $ACTION" >> "$TODAY_FILE"
+
+# ---- OUTPUT BLOCK LOGGING (last 50 lines, indented) ----
+
+echo "$TS OUTPUT_BEGIN" >> "$TODAY_FILE"
+echo "$LOG_OUTPUT" | tail -n 50 | sed 's/^/    /' >> "$TODAY_FILE"
+echo "$TS OUTPUT_END" >> "$TODAY_FILE"
+
+# ---- SAFE POP ----
+
+if ! tail -n +2 "$QUEUE_FILE" > "$QUEUE_FILE.tmp"; then
+  echo "$TS POP_FAIL: Unable to remove executed action" >> "$TODAY_FILE"
+  exit 1
+fi
+
+mv "$QUEUE_FILE.tmp" "$QUEUE_FILE" || {
+  echo "$TS POP_FAIL: Move failed after execution" >> "$TODAY_FILE"
+  exit 1
+}

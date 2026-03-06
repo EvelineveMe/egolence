@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+WORKSPACE="/root/.openclaw/workspace"
+ACTIVE=$(jq -r '.[0] // empty' "$WORKSPACE/life/projects/_active.json")
+[ -n "$ACTIVE" ] || { echo "No active project"; exit 1; }
+
+QUEUE="$WORKSPACE/life/projects/$ACTIVE/next_actions.txt"
+MEM="$WORKSPACE/memory/$(date -u +%Y-%m-%d).md"
+BACKLOG="$WORKSPACE/life/projects/$ACTIVE/backlog.md"
+
+INPUT="$*"
+TS=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+
+# Simple deterministic pattern: Create /path with the text 'text'
+if echo "$INPUT" | grep -qE "^Create /.+ with the text '.+'$"; then
+  REL=$(echo "$INPUT" | sed -E "s/^Create \/([^ ]+) with the text '.+'$/\1/")
+  TEXT=$(echo "$INPUT" | sed -E "s/^Create \/[^ ]+ with the text '(.+)'$/\1/")
+
+  TARGET="$WORKSPACE/$REL"
+
+  if [[ "$TARGET" != "$WORKSPACE"* ]]; then
+    echo "$TS BLOCKED: $INPUT — outside workspace" >> "$MEM"
+    echo "- BLOCKED $TS: $INPUT — outside workspace" >> "$BACKLOG"
+    exit 0
+  fi
+
+  B64=$(echo -n "$TEXT" | base64)
+  echo "SPS_WRITE $REL $B64" >> "$QUEUE"
+  echo "$TS ENQUEUED: SPS_WRITE $REL" >> "$MEM"
+  exit 0
+fi
+
+# Refuse everything else
+echo "$TS BLOCKED: $INPUT — unsupported pattern" >> "$MEM"
+echo "- BLOCKED $TS: $INPUT — unsupported pattern" >> "$BACKLOG"
+exit 0

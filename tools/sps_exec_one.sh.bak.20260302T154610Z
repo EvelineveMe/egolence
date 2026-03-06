@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+LOCKFILE="/tmp/eve8_exec.lock"
+exec 9>"$LOCKFILE" || exit 1
+flock -n 9 || exit 0
+
+WORKSPACE="/root/.openclaw/workspace"
+PROJECTS_DIR="$WORKSPACE/life/projects"
+ACTIVE_FILE="$PROJECTS_DIR/_active.json"
+TODAY_FILE="$WORKSPACE/memory/$(date -u +%Y-%m-%d).md"
+
+[ -f "$ACTIVE_FILE" ] || exit 0
+ACTIVE_SLUG=$(jq -r '.[0] // empty' "$ACTIVE_FILE")
+[ -n "$ACTIVE_SLUG" ] || exit 0
+
+PROJECT_DIR="$PROJECTS_DIR/$ACTIVE_SLUG"
+QUEUE_FILE="$PROJECT_DIR/next_actions.txt"
+ITEMS_FILE="$PROJECT_DIR/items.json"
+[ -f "$QUEUE_FILE" ] || exit 0
+
+ACTION=$(head -n 1 "$QUEUE_FILE")
+[ -n "$ACTION" ] || exit 0
+TS=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+
+# --- SAFE WRITE HANDLERS ---
+if [[ "$ACTION" == SPS_WRITE* ]] || [[ "$ACTION" == SPS_APPEND* ]]; then
+  CMD=$(echo "$ACTION" | awk '{print $1}')
+  REL=$(echo "$ACTION" | awk '{print $2}')
+  B64=$(echo "$ACTION" | awk '{print $3}')
+  TARGET="$WORKSPACE/$REL"
+
+  if [[ "$TARGET" != "$WORKSPACE"* ]]; then
+    echo "$TS BLOCKED: $ACTION — path outside workspace" >> "$TODAY_FILE"
+    exit 0
+  fi
+
+  mkdir -p "$(dirname "$TARGET")"
+  CONTENT=$(echo "$B64" | base64 -d)
+
+  if [ "$CMD" = "SPS_WRITE" ]; then
+    printf "%s" "$CONTENT" > "$TARGET"
+  else
+    printf "%s" "$CONTENT" >> "$TARGET"
+  fi
+
+  echo "$TS EXECUTED: $ACTION" >> "$TODAY_FILE"
+  tail -n +2 "$QUEUE_FILE" > "$QUEUE_FILE.tmp" && mv "$QUEUE_FILE.tmp" "$QUEUE_FILE"
+  exit 0
+fi
+
+# --- ORIGINAL VALIDATION (simplified) ---
+if echo "$ACTION" | grep -E "(;|&&|\|\||\||>|<|<<|>>|\\|\$\(|\`)" >/dev/null; then
+  echo "$TS BLOCKED: $ACTION — chaining/redirection" >> "$TODAY_FILE"
+  tail -n +2 "$QUEUE_FILE" > "$QUEUE_FILE.tmp" && mv "$QUEUE_FILE.tmp" "$QUEUE_FILE"
+  exit 0
+fi
+
+bash -c "$ACTION" 2>&1 >/dev/null || true
+
+echo "$TS EXECUTED: $ACTION" >> "$TODAY_FILE"
+tail -n +2 "$QUEUE_FILE" > "$QUEUE_FILE.tmp" && mv "$QUEUE_FILE.tmp" "$QUEUE_FILE"

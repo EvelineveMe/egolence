@@ -1,0 +1,146 @@
+:root {
+  --bg-dark: #0B0B0B;
+  --bg-ivory: #F5F3EE;
+  --accent-plum: #4B2E5A;
+  --text-light: #F2F2F2;
+  --text-dark: #111111;
+  --text-muted: #A0A3B1;
+  --max-width: 1200px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.narrow {
+  max-width: 760px;
+}
+
+.hero {
+  padding: 140px 0 120px;
+  text-align: center;
+}
+
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+h1 {
+  font-family: "Playfair Display", serif;
+  font-size: 64px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.subheadline {
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 24px;
+  color: var(--text-muted);
+}
+
+.supporting {
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+.positioning {
+  font-size: 16px;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 14px 32px;
+  background: var(--accent-plum);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.2s ease;
+}
+
+.btn-primary:hover {
+  opacity: 0.85;
+}
+
+.proof-strip {
+  background: #121212;
+  padding: 60px 0;
+}
+
+.proof-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+  text-align: center;
+}
+
+.metric {
+  display: block;
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--accent-plum);
+}
+
+.label {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.problem {
+  background: var(--bg-ivory);
+  color: var(--text-dark);
+  padding: 120px 0;
+  text-align: center;
+}
+
+.problem h3 {
+  font-family: "Playfair Display", serif;
+  font-size: 36px;
+  margin-bottom: 24px;
+}
+
+.cta {
+  padding: 120px 0;
+  text-align: center;
+}
+
+.cta h3 {
+  font-family: "Playfair Display", serif;
+  font-size: 40px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 40px;
+  }
+
+  .subheadline {
+    font-size: 20px;
+  }
+
+  .hero {
+    padding: 100px 0 80px;
+  }
+}

@@ -1,0 +1,18 @@
+[
+  {
+    "id": "fx_2026-03-02T11:14:00Z_autonomy_init",
+    "ts": "2026-03-02T11:14:00Z",
+    "type": "decision",
+    "subject": "Autonomy Infrastructure",
+    "predicate": "project_initialized",
+    "object": "Promoted to formal SPS project",
+    "status": "active",
+    "supersedes": [],
+    "source": {
+      "channel": "telegram",
+      "chat_id": "8464691483",
+      "message_id": "unknown"
+    },
+    "confidence": 1.0
+  }
+]

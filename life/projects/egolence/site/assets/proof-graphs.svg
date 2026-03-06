@@ -1,0 +1,14 @@
+<!-- Egolence Proof Graphs v0.1 -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="graph-revenue" viewBox="0 0 300 120">
+      <polyline fill="none" stroke="#5A2A5F" stroke-width="3" points="0,100 60,90 120,70 180,55 240,30 300,10" />
+    </symbol>
+    <symbol id="graph-audience" viewBox="0 0 300 120">
+      <polyline fill="none" stroke="#5A2A5F" stroke-width="3" points="0,95 60,80 120,75 180,60 240,40 300,20" />
+    </symbol>
+    <symbol id="graph-efficiency" viewBox="0 0 300 120">
+      <polyline fill="none" stroke="#5A2A5F" stroke-width="3" points="0,40 60,50 120,60 180,75 240,85 300,95" />
+    </symbol>
+  </defs>
+</svg>

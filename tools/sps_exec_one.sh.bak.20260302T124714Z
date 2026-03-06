@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+WORKSPACE="/root/.openclaw/workspace"
+PROJECTS_DIR="$WORKSPACE/life/projects"
+ACTIVE_FILE="$PROJECTS_DIR/_active.json"
+TODAY_FILE="$WORKSPACE/memory/$(date -u +%Y-%m-%d).md"
+
+ACTIVE_SLUG=$(jq -r '.[0]' "$ACTIVE_FILE")
+
+if [ -z "$ACTIVE_SLUG" ] || [ "$ACTIVE_SLUG" = "null" ]; then
+  echo "No active project."
+  exit 0
+fi
+
+PROJECT_DIR="$PROJECTS_DIR/$ACTIVE_SLUG"
+QUEUE_FILE="$PROJECT_DIR/next_actions.txt"
+SUMMARY_FILE="$PROJECT_DIR/summary.md"
+ITEMS_FILE="$PROJECT_DIR/items.json"
+
+if [ ! -d "$PROJECT_DIR" ]; then
+  echo "Active project directory missing."
+  exit 1
+fi
+
+if [ ! -f "$QUEUE_FILE" ]; then
+  echo "No next_actions.txt found."
+  exit 0
+fi
+
+ACTION=$(head -n 1 "$QUEUE_FILE")
+
+if [ -z "$ACTION" ]; then
+  echo "Queue empty."
+  exit 0
+fi
+
+if echo "$ACTION" | grep -E "(apt|systemctl|ufw|iptables|reboot|shutdown|rm -rf /|chmod 777 /)" > /dev/null; then
+  echo "Blocked unsafe action."
+  exit 1
+fi
+
+if echo "$ACTION" | grep -v "$WORKSPACE" > /dev/null; then
+  echo "Action outside workspace blocked."
+  exit 1
+fi
+
+TS=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+LOG_OUTPUT=$($ACTION 2>&1 || true)
+
+TMP_FILE=$(mktemp)
+jq ". += [{\"id\": \"fx_$TS_exec\",\"ts\": \"$TS\",\"type\": \"task\",\"subject\": \"$ACTIVE_SLUG\",\"predicate\": \"executed\",\"object\": \"${ACTION//\"/\\\"}\",\"status\": \"active\",\"supersedes\": [],\"source\": {\"channel\":\"system\",\"chat_id\":\"executor\",\"message_id\":\"auto\"},\"confidence\": 1.0}]" "$ITEMS_FILE" > "$TMP_FILE" && mv "$TMP_FILE" "$ITEMS_FILE"
+
+echo "$TS EXECUTED: $ACTION" >> "$TODAY_FILE"
+echo "$TS OUTPUT: $LOG_OUTPUT" >> "$TODAY_FILE"
+
+tail -n +2 "$QUEUE_FILE" > "$QUEUE_FILE.tmp" && mv "$QUEUE_FILE.tmp" "$QUEUE_FILE"

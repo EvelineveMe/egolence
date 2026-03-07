@@ -1,12 +1,18 @@
 import json
 import time
 import os
+from datetime import datetime
 
 TASK_POINTER = 'life/_ceo_active_task.json'
+LOCK_FILE = 'ceo_worker/worker.lock'
 
 print('[CEO WORKER] Starting...')
 
 while True:
+    if os.path.exists(LOCK_FILE):
+        time.sleep(2)
+        continue
+
     if not os.path.exists(TASK_POINTER):
         time.sleep(5)
         continue
@@ -22,17 +28,20 @@ while True:
         time.sleep(5)
         continue
 
+    # Acquire lock
+    with open(LOCK_FILE, 'w') as lf:
+        lf.write(str(datetime.utcnow()))
+
     project = data.get('project')
     task = data.get('task')
 
-    print(f"[CEO WORKER] Active task detected: {task} (project: {project})")
+    print(f"[CEO WORKER] Executing task: {task} (project: {project})")
 
-    # Placeholder execution loop
-    # Real implementation will:
-    # 1. Load project state
-    # 2. Plan next atomic step via model
-    # 3. Execute
-    # 4. Commit
-    # 5. Update state
+    # Placeholder for deterministic atomic executor
+    # Real implementation will call model API and execute next step
 
-    time.sleep(5)
+    # Release lock
+    if os.path.exists(LOCK_FILE):
+        os.remove(LOCK_FILE)
+
+    time.sleep(2)

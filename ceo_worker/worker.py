@@ -8,6 +8,7 @@ from datetime import datetime
 
 TASK_POINTER = 'life/_ceo_active_task.json'
 LOG_FILE = 'ceo_worker/logs/worker.log'
+LOCK_FILE = 'ceo_worker/worker.lock'
 INTERVAL = 3
 
 last_idle_state = False
@@ -36,41 +37,61 @@ def execute_shell(command):
     return result.returncode, result.stdout, result.stderr
 
 
+def acquire_lock():
+    if os.path.exists(LOCK_FILE):
+        return False
+    with open(LOCK_FILE, 'w') as f:
+        f.write(str(datetime.utcnow()))
+    return True
+
+
+def release_lock():
+    if os.path.exists(LOCK_FILE):
+        os.remove(LOCK_FILE)
+
+
 def process_once():
     global last_idle_state
 
-    task_data = load_task()
-
-    if not task_data or not task_data.get('active'):
-        if not last_idle_state:
-            log('Idle - no active task.')
-            last_idle_state = True
+    if not acquire_lock():
         return
 
-    last_idle_state = False
+    try:
+        task_data = load_task()
 
-    command = task_data.get('shell_command')
+        if not task_data or not task_data.get('active'):
+            if not last_idle_state:
+                log('Idle - no active task.')
+                last_idle_state = True
+            return
 
-    if not command:
-        log('Active task but no shell_command defined.')
-        return
+        last_idle_state = False
 
-    log(f'Executing: {command}')
-    code, out, err = execute_shell(command)
+        command = task_data.get('shell_command')
 
-    log(f'Exit code: {code}')
-    if out:
-        log(f'STDOUT: {out.strip()}')
-    if err:
-        log(f'STDERR: {err.strip()}')
+        if not command:
+            log('Active task but no shell_command defined.')
+            return
 
-    if code == 0:
-        task_data['active'] = False
-        task_data['completed_at'] = datetime.utcnow().isoformat()
-        save_task(task_data)
-        log('Task completed successfully.')
-    else:
-        log('Task failed.')
+        log(f'Executing: {command}')
+        code, out, err = execute_shell(command)
+
+        log(f'Exit code: {code}')
+        if out:
+            log(f'STDOUT: {out.strip()}')
+        if err:
+            log(f'STDERR: {err.strip()}')
+
+        if code == 0:
+            task_data['active'] = False
+            task_data['completed_at'] = datetime.utcnow().isoformat()
+            save_task(task_data)
+            log('Task completed successfully.')
+        else:
+            log('Task failed.')
+
+    finally:
+        release_lock()
 
 
 def main():

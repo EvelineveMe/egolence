@@ -1,64 +1,33 @@
-import json
+#!/usr/bin/env python3
+"""
+Standalone CEO Worker v0.1
+Single-loop execution engine.
+"""
+
 import time
-import os
-from datetime import datetime
+import datetime
 
-TASK_POINTER = 'life/_ceo_active_task.json'
-LOCK_FILE = 'ceo_worker/worker.lock'
-LOG_FILE = 'ceo_worker/logs/worker.log'
+class CEOWorker:
+    def __init__(self, interval_seconds=60):
+        self.interval = interval_seconds
+        self.running = False
 
-print('[CEO WORKER] Starting...')
+    def heartbeat(self):
+        return {
+            "ts": datetime.datetime.utcnow().isoformat() + "Z",
+            "status": "alive"
+        }
 
-while True:
-    if os.path.exists(LOCK_FILE):
-        time.sleep(2)
-        continue
+    def execute_cycle(self):
+        hb = self.heartbeat()
+        print(f"[CEO_WORKER] {hb['ts']} :: {hb['status']}")
 
-    if not os.path.exists(TASK_POINTER):
-        time.sleep(5)
-        continue
+    def run(self):
+        self.running = True
+        while self.running:
+            self.execute_cycle()
+            time.sleep(self.interval)
 
-    with open(TASK_POINTER, 'r') as f:
-        try:
-            data = json.load(f)
-        except:
-            time.sleep(5)
-            continue
-
-    if not data.get('active'):
-        time.sleep(5)
-        continue
-
-    # Acquire lock
-    with open(LOCK_FILE, 'w') as lf:
-        lf.write(str(datetime.utcnow()))
-
-    project = data.get('project')
-    task = data.get('task')
-
-    print(f"[CEO WORKER] Executing task: {task} (project: {project})")
-
-    # Deterministic execution stub
-    result = {
-        "timestamp": datetime.utcnow().isoformat() + "Z",
-        "project": project,
-        "task": task,
-        "status": "completed"
-    }
-
-    os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
-    with open(LOG_FILE, 'a') as log:
-        log.write(json.dumps(result) + "\n")
-
-    # Mark task inactive
-    data['active'] = False
-    data['last_completed_at'] = result["timestamp"]
-
-    with open(TASK_POINTER, 'w') as f:
-        json.dump(data, f, indent=2)
-
-    # Release lock
-    if os.path.exists(LOCK_FILE):
-        os.remove(LOCK_FILE)
-
-    time.sleep(2)
+if __name__ == "__main__":
+    worker = CEOWorker()
+    worker.run()

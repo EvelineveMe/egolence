@@ -1,8 +1,8 @@
 :root {
-  --black: #111111;
-  --gray-light: #f4f4f4;
-  --gray-medium: #888888;
-  --white: #ffffff;
+  --black: #111;
+  --white: #fff;
+  --light: #f6f6f6;
+  --gray: #777;
 }
 
 * {
@@ -17,102 +17,111 @@ body {
   color: var(--black);
 }
 
-.hero {
-  padding: 5rem 1.5rem 4rem;
+.wrap {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
   text-align: center;
-  background: var(--white);
+}
+
+.wrap.narrow {
+  max-width: 460px;
+}
+
+.hero {
+  padding: 6rem 0 4rem;
 }
 
 .hero h1 {
-  font-size: 2.2rem;
-  line-height: 1.2;
-  font-weight: 700;
-  margin-bottom: 1rem;
+  font-size: 2.4rem;
+  line-height: 1.15;
+  font-weight: 800;
+  margin-bottom: 1.2rem;
 }
 
-.hero-sub {
+.sub {
   font-size: 1rem;
-  color: var(--gray-medium);
+  color: var(--gray);
   margin-bottom: 2rem;
 }
 
-.primary-btn {
-  padding: 0.85rem 1.8rem;
+.btn {
+  padding: 0.9rem 2rem;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
   background: var(--black);
   color: var(--white);
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 0.95rem;
 }
 
-.primary-btn.inverted {
+.btn.inverse {
   background: var(--white);
   color: var(--black);
 }
 
 .section {
-  padding: 3.5rem 1.5rem;
+  padding: 4rem 0;
 }
 
-.section.alt {
-  background: var(--gray-light);
+.section.light {
+  background: var(--light);
 }
 
-.section-title {
-  font-size: 1.4rem;
-  font-weight: 600;
+.section h2 {
+  font-size: 1.6rem;
   margin-bottom: 1.5rem;
 }
 
-.card {
-  background: var(--gray-light);
-  padding: 1.5rem;
-  border-radius: 12px;
+.section p {
+  font-size: 1rem;
+  color: var(--gray);
 }
 
-.feature {
+.stack {
+  margin-top: 1.5rem;
+}
+
+.item {
   display: flex;
   align-items: center;
+  justify-content: center;
   margin-bottom: 1rem;
 }
 
-.dot {
+.bullet {
   width: 8px;
   height: 8px;
-  background: var(--black);
   border-radius: 50%;
-  margin-right: 0.75rem;
+  background: var(--black);
+  margin-right: 0.6rem;
 }
 
 .testimonial {
-  background: var(--gray-light);
-  padding: 1.5rem;
-  border-radius: 12px;
-  font-style: italic;
+  background: var(--light);
+  padding: 2rem;
+  border-radius: 16px;
 }
 
 .testimonial span {
   display: block;
   margin-top: 1rem;
   font-size: 0.85rem;
-  color: var(--gray-medium);
+  color: var(--gray);
 }
 
 .cta {
-  padding: 4rem 1.5rem;
-  text-align: center;
   background: var(--black);
   color: var(--white);
+  padding: 5rem 0;
 }
 
 .cta h2 {
-  font-size: 1.6rem;
-  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
 }
 
 @media (min-width: 768px) {
   .hero h1 {
-    font-size: 2.8rem;
+    font-size: 3rem;
   }
 }

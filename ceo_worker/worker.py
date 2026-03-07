@@ -16,6 +16,7 @@ LOG_DIR.mkdir(parents=True, exist_ok=True)
 
 HEARTBEAT_INTERVAL = 60  # seconds
 TASK_FILE = ROOT / "ceo_worker" / "tasks.json"
+LOCK_FILE = ROOT / "ceo_worker" / ".worker.lock"
 
 
 def utc_now():
@@ -93,6 +94,16 @@ def execute_tasks():
 
 
 def run_cycle():
+    if LOCK_FILE.exists():
+        log("Cycle skipped: lock exists")
+        return
+
+    try:
+        LOCK_FILE.write_text(str(utc_now()))
+    except Exception as e:
+        log(f"Failed to create lock: {e}")
+        return
+
     log("Cycle start")
     try:
         execute_tasks()
@@ -106,6 +117,10 @@ def run_cycle():
     except Exception as e:
         log(f"Error: {e}")
     log("Cycle end")
+    try:
+        LOCK_FILE.unlink(missing_ok=True)
+    except Exception as e:
+        log(f"Failed to remove lock: {e}")
 
 
 def main():

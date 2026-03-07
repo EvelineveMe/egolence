@@ -69,13 +69,19 @@ def process_once():
 
         last_idle_state = False
 
-        command = task_data.get('shell_command')
+        commands = task_data.get('commands')
+        single_command = task_data.get('shell_command')
 
-        if not command:
-            log('Active task but no shell_command defined.')
+        if commands and isinstance(commands, list) and len(commands) > 0:
+            command = commands.pop(0)
+            log(f'Executing (chain): {command}')
+        elif single_command:
+            command = single_command
+            log(f'Executing: {command}')
+        else:
+            log('Active task but no command defined.')
             return False
 
-        log(f'Executing: {command}')
         code, out, err = execute_shell(command)
 
         log(f'Exit code: {code}')
@@ -84,14 +90,23 @@ def process_once():
         if err:
             log(f'STDERR: {err.strip()}')
 
-        if code == 0:
+        if code != 0:
+            log('Task failed.')
+            return False
+
+        # Save updated command list
+        if commands and isinstance(commands, list):
+            task_data['commands'] = commands
+            if len(commands) == 0:
+                task_data['active'] = False
+                task_data['completed_at'] = datetime.utcnow().isoformat()
+                log('Multi-chain task completed.')
+        else:
             task_data['active'] = False
             task_data['completed_at'] = datetime.utcnow().isoformat()
-            save_task(task_data)
             log('Task completed successfully.')
-        else:
-            log('Task failed.')
 
+        save_task(task_data)
         return True
 
     except Exception as e:

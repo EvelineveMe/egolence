@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Standalone CEO Worker v0.3
-Adds simple task queue execution with persistent state.
+Standalone CEO Worker v0.4
+Adds shell task execution + CLI controls.
 """
 
 import time
@@ -51,6 +51,20 @@ class CEOWorker:
                 task["done"] = True
                 break
 
+    def perform_task(self, task: dict):
+        """
+        Basic task executor stub.
+        Supports type='shell' with 'command'.
+        """
+        task_type = task.get("type")
+        if task_type == "shell":
+            cmd = task.get("command")
+            if not cmd:
+                return {"error": "missing_command"}
+            exit_code = os.system(cmd)
+            return {"exit_code": exit_code}
+        return {"status": "noop"}
+
     def execute_cycle(self):
         hb = self.heartbeat()
         tasks = self.load_tasks()
@@ -65,8 +79,14 @@ class CEOWorker:
         self.persist(payload)
 
         if next_task:
+            result = self.perform_task(next_task)
             self.mark_task_done(tasks, next_task.get("id"))
             self.save_tasks(tasks)
+            self.persist({
+                "ts": datetime.datetime.utcnow().isoformat() + "Z",
+                "task_executed": next_task.get("id"),
+                "result": result
+            })
 
     def run(self):
         self.running = True
@@ -75,5 +95,29 @@ class CEOWorker:
             time.sleep(self.interval)
 
 if __name__ == "__main__":
-    worker = CEOWorker()
-    worker.run()
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Standalone CEO Worker")
+    parser.add_argument("--once", action="store_true", help="Run one cycle only")
+    parser.add_argument("--interval", type=int, default=60, help="Interval in seconds")
+    parser.add_argument("--add-shell-task", type=str, help="Add a shell task command")
+
+    args = parser.parse_args()
+
+    worker = CEOWorker(interval_seconds=args.interval)
+
+    if args.add_shell_task:
+        tasks = worker.load_tasks()
+        task_id = f"task_{int(time.time())}"
+        tasks.append({
+            "id": task_id,
+            "type": "shell",
+            "command": args.add_shell_task,
+            "done": False
+        })
+        worker.save_tasks(tasks)
+        print(f"Added shell task: {task_id}")
+    elif args.once:
+        worker.execute_cycle()
+    else:
+        worker.run()

@@ -47,14 +47,45 @@ def execute_tasks():
             cmd = task.get("command")
             if not cmd:
                 continue
-            log(f"Executing task: {cmd}")
+
+            retry_count = task.get("retry_count", 0)
+            max_retries = task.get("max_retries", 3)
+
+            log(f"Executing task: {cmd} (attempt {retry_count + 1}/{max_retries})")
+
             try:
-                subprocess.run(cmd, shell=True, cwd=ROOT)
-                task["status"] = "done"
-                task["completed_at"] = utc_now()
+                result = subprocess.run(cmd, shell=True, cwd=ROOT)
+
+                if result.returncode == 0:
+                    task["status"] = "done"
+                    task["completed_at"] = utc_now()
+                else:
+                    retry_count += 1
+                    task["retry_count"] = retry_count
+                    task["last_error_code"] = result.returncode
+
+                    if retry_count >= max_retries:
+                        task["status"] = "failed"
+                        task["failed_at"] = utc_now()
+                        log(f"Task failed permanently: {cmd}")
+                    else:
+                        log(f"Task failed (code {result.returncode}), will retry")
+
                 updated = True
+
             except Exception as e:
-                log(f"Task execution error: {e}")
+                retry_count += 1
+                task["retry_count"] = retry_count
+                task["last_exception"] = str(e)
+
+                if retry_count >= max_retries:
+                    task["status"] = "failed"
+                    task["failed_at"] = utc_now()
+                    log(f"Task exception permanently failed: {cmd} — {e}")
+                else:
+                    log(f"Task exception, will retry: {e}")
+
+                updated = True
 
     if updated:
         with open(TASK_FILE, "w") as f:

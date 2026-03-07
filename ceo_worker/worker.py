@@ -9,7 +9,9 @@ from datetime import datetime
 TASK_POINTER = 'life/_ceo_active_task.json'
 LOG_FILE = 'ceo_worker/logs/worker.log'
 LOCK_FILE = 'ceo_worker/worker.lock'
-INTERVAL = 3
+
+IDLE_INTERVAL = 3
+ACTIVE_INTERVAL = 0.5
 
 last_idle_state = False
 
@@ -54,7 +56,7 @@ def process_once():
     global last_idle_state
 
     if not acquire_lock():
-        return
+        return False
 
     try:
         task_data = load_task()
@@ -63,7 +65,7 @@ def process_once():
             if not last_idle_state:
                 log('Idle - no active task.')
                 last_idle_state = True
-            return
+            return False
 
         last_idle_state = False
 
@@ -71,7 +73,7 @@ def process_once():
 
         if not command:
             log('Active task but no shell_command defined.')
-            return
+            return False
 
         log(f'Executing: {command}')
         code, out, err = execute_shell(command)
@@ -90,14 +92,16 @@ def process_once():
         else:
             log('Task failed.')
 
+        return True
+
     except Exception as e:
         log(f'Unhandled exception: {str(e)}')
+        return False
     finally:
         release_lock()
 
 
 def startup_cleanup():
-    # Remove stale lock file on startup
     if os.path.exists(LOCK_FILE):
         log('Stale lock detected on startup. Removing.')
         os.remove(LOCK_FILE)
@@ -106,12 +110,18 @@ def startup_cleanup():
 def main():
     startup_cleanup()
     log('Worker started.')
+
     while True:
+        executed = False
         try:
-            process_once()
+            executed = process_once()
         except Exception as loop_error:
             log(f'Loop-level exception: {str(loop_error)}')
-        time.sleep(INTERVAL)
+
+        if executed:
+            time.sleep(ACTIVE_INTERVAL)
+        else:
+            time.sleep(IDLE_INTERVAL)
 
 
 if __name__ == '__main__':

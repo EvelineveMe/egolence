@@ -5,6 +5,7 @@ from datetime import datetime
 
 TASK_POINTER = 'life/_ceo_active_task.json'
 LOCK_FILE = 'ceo_worker/worker.lock'
+LOG_FILE = 'ceo_worker/logs/worker.log'
 
 print('[CEO WORKER] Starting...')
 
@@ -37,8 +38,24 @@ while True:
 
     print(f"[CEO WORKER] Executing task: {task} (project: {project})")
 
-    # Placeholder for deterministic atomic executor
-    # Real implementation will call model API and execute next step
+    # Deterministic execution stub
+    result = {
+        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "project": project,
+        "task": task,
+        "status": "completed"
+    }
+
+    os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
+    with open(LOG_FILE, 'a') as log:
+        log.write(json.dumps(result) + "\n")
+
+    # Mark task inactive
+    data['active'] = False
+    data['last_completed_at'] = result["timestamp"]
+
+    with open(TASK_POINTER, 'w') as f:
+        json.dump(data, f, indent=2)
 
     # Release lock
     if os.path.exists(LOCK_FILE):

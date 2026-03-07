@@ -18,17 +18,18 @@ Build a premium, conversion-optimized authority website for Egolence™ position
 - Static build (no platform lock-in)
 
 ## Current Status
-Project formalized under SPS. Multi-page file structure scaffolded. Design token system upgraded to Plum-based palette. Homepage hero locked. Proof strip layout implemented (grid structure). SVG graph implementation in progress. Homepage rebuild actively in execution.
+Project formalized under SPS. Multi-page file structure scaffolded. Design token system upgraded to Plum-based palette. Homepage hero locked. Proof strip layout implemented (grid structure). SVG proof graph specifications defined and ready for implementation. Homepage rebuild actively in execution.
 
 ## Decisions
 - 2026-03-04T09:32:00Z — Hero locked: "Your Authority. Everywhere. Without Becoming a Content Machine."
 - 2026-03-06T09:15:00Z — Homepage proof strip will feature 3 authority metrics with custom SVG line graphs (Revenue Growth, Audience Expansion, Content Output Reduction).
 
 ## Next Actions
-1. Implement custom SVG proof graphs
-2. Build System page content architecture
-3. Draft Apply page form structure
+1. Implement custom SVG proof graphs (Revenue / Audience / Output Reduction)
+2. Build System page content architecture (3-section narrative flow)
+3. Draft Apply page form structure (qualification-first framing)
 4. Prepare deployment structure for static export
+5. Define domain deployment timing decision criteria
 
 ## Open Questions
 - Domain deployment timing

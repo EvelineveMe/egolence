@@ -1,14 +1,35 @@
-<!-- Egolence Proof Graphs v0.1 -->
-<svg width="0" height="0" style="position:absolute">
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute">
   <defs>
+
+    <!-- Revenue Growth Graph -->
     <symbol id="graph-revenue" viewBox="0 0 300 120">
-      <polyline fill="none" stroke="#5A2A5F" stroke-width="3" points="0,100 60,90 120,70 180,55 240,30 300,10" />
+      <polyline
+        fill="none"
+        stroke="#5A2A4D"
+        stroke-width="4"
+        points="0,100 40,90 80,75 120,60 160,55 200,40 240,28 280,15"
+      />
     </symbol>
+
+    <!-- Audience Expansion Graph -->
     <symbol id="graph-audience" viewBox="0 0 300 120">
-      <polyline fill="none" stroke="#5A2A5F" stroke-width="3" points="0,95 60,80 120,75 180,60 240,40 300,20" />
+      <polyline
+        fill="none"
+        stroke="#5A2A4D"
+        stroke-width="4"
+        points="0,95 50,88 100,70 150,65 200,45 250,30 300,20"
+      />
     </symbol>
+
+    <!-- Content Output Reduction Graph -->
     <symbol id="graph-efficiency" viewBox="0 0 300 120">
-      <polyline fill="none" stroke="#5A2A5F" stroke-width="3" points="0,40 60,50 120,60 180,75 240,85 300,95" />
+      <polyline
+        fill="none"
+        stroke="#5A2A4D"
+        stroke-width="4"
+        points="0,40 50,50 100,65 150,70 200,82 250,92 300,100"
+      />
     </symbol>
+
   </defs>
 </svg>

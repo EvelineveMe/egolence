@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Egolence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+:root {
+  --bg: #000000;
+  --text: #ffffff;
+  --accent: #7c3aed;
+  --max-width: 1200px;
+  --section-padding: 120px;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Satoshi', sans-serif;
+}
+
+.section {
+  padding: var(--section-padding) 40px;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-size: 64px;
+  line-height: 1.05;
+  text-align: center;
+}
+
+.metrics {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  margin-top: 40px;
+}
+
+.split-proof {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 80px;
+}
+
+.vertical-video {
+  aspect-ratio: 9/16;
+  width: 100%;
+  max-width: 420px;
+}
+
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+@media (max-width: 900px) {
+  .split-proof {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body>
+
+<section class="section hero">
+  <div class="container">
+    <h1>Your Authority.<br/>Everywhere.<br/>Installed Once.</h1>
+    <div class="metrics">
+      <div>+620% Reach</div>
+      <div>3.4x DMs</div>
+      <div>95% Time Saved</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container split-proof">
+    <div class="vertical-video">
+      <video src="../assets/proof/placeholder_vertical_video.mp4" muted loop autoplay></video>
+    </div>
+    <div>
+      <h2>AI Case Study</h2>
+      <p>From 0 to 600% reach in 30 days.</p>
+      <p>Proof of automated authority at scale.</p>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

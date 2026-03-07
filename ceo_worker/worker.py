@@ -3,10 +3,12 @@
 import json
 import os
 import subprocess
+import time
 from datetime import datetime
 
 TASK_POINTER = 'life/_ceo_active_task.json'
 LOG_FILE = 'ceo_worker/logs/worker.log'
+INTERVAL = 3
 
 
 def log(message):
@@ -32,17 +34,17 @@ def execute_shell(command):
     return result.returncode, result.stdout, result.stderr
 
 
-def main():
+def process_once():
     task_data = load_task()
 
     if not task_data or not task_data.get('active'):
-        log('No active task. Exiting.')
+        log('Idle - no active task.')
         return
 
     command = task_data.get('shell_command')
 
     if not command:
-        log('Active task but no shell_command defined. Exiting.')
+        log('Active task but no shell_command defined.')
         return
 
     log(f'Executing: {command}')
@@ -61,6 +63,13 @@ def main():
         log('Task completed successfully.')
     else:
         log('Task failed.')
+
+
+def main():
+    log('Worker started.')
+    while True:
+        process_once()
+        time.sleep(INTERVAL)
 
 
 if __name__ == '__main__':

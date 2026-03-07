@@ -10,6 +10,8 @@ TASK_POINTER = 'life/_ceo_active_task.json'
 LOG_FILE = 'ceo_worker/logs/worker.log'
 INTERVAL = 3
 
+last_idle_state = False
+
 
 def log(message):
     os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
@@ -35,11 +37,17 @@ def execute_shell(command):
 
 
 def process_once():
+    global last_idle_state
+
     task_data = load_task()
 
     if not task_data or not task_data.get('active'):
-        log('Idle - no active task.')
+        if not last_idle_state:
+            log('Idle - no active task.')
+            last_idle_state = True
         return
+
+    last_idle_state = False
 
     command = task_data.get('shell_command')
 

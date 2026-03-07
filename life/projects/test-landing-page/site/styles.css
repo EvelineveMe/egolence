@@ -1,3 +1,10 @@
+:root {
+  --black: #111111;
+  --gray-light: #f4f4f4;
+  --gray-medium: #888888;
+  --white: #ffffff;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -6,106 +13,106 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  line-height: 1.6;
-  color: #111;
-  background: #ffffff;
-}
-
-.container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 2rem 1.5rem;
+  background: var(--white);
+  color: var(--black);
 }
 
 .hero {
-  background: #f5f5f5;
+  padding: 5rem 1.5rem 4rem;
   text-align: center;
-  padding: 4rem 0;
+  background: var(--white);
 }
 
 .hero h1 {
-  font-size: 2rem;
+  font-size: 2.2rem;
+  line-height: 1.2;
+  font-weight: 700;
   margin-bottom: 1rem;
 }
 
-.subtitle {
+.hero-sub {
   font-size: 1rem;
-  margin-bottom: 1.5rem;
-  color: #555;
+  color: var(--gray-medium);
+  margin-bottom: 2rem;
+}
+
+.primary-btn {
+  padding: 0.85rem 1.8rem;
+  background: var(--black);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.primary-btn.inverted {
+  background: var(--white);
+  color: var(--black);
 }
 
 .section {
-  padding: 3rem 0;
+  padding: 3.5rem 1.5rem;
 }
 
 .section.alt {
-  background: #fafafa;
+  background: var(--gray-light);
 }
 
-.section h2 {
-  font-size: 1.5rem;
+.section-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.card {
+  background: var(--gray-light);
+  padding: 1.5rem;
+  border-radius: 12px;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
   margin-bottom: 1rem;
 }
 
-.feature-list {
-  list-style: none;
-}
-
-.feature-list li {
-  margin-bottom: 0.5rem;
-  padding-left: 1rem;
-  position: relative;
-}
-
-.feature-list li::before {
-  content: "•";
-  position: absolute;
-  left: 0;
+.dot {
+  width: 8px;
+  height: 8px;
+  background: var(--black);
+  border-radius: 50%;
+  margin-right: 0.75rem;
 }
 
 .testimonial {
-  background: #f0f0f0;
+  background: var(--gray-light);
   padding: 1.5rem;
-  border-radius: 8px;
+  border-radius: 12px;
+  font-style: italic;
 }
 
 .testimonial span {
   display: block;
   margin-top: 1rem;
-  font-size: 0.9rem;
-  color: #666;
+  font-size: 0.85rem;
+  color: var(--gray-medium);
 }
 
 .cta {
+  padding: 4rem 1.5rem;
   text-align: center;
-  background: #111;
-  color: white;
+  background: var(--black);
+  color: var(--white);
 }
 
-.btn-primary {
-  display: inline-block;
-  background: #111;
-  color: #fff;
-  padding: 0.75rem 1.5rem;
-  text-decoration: none;
-  border-radius: 4px;
-  font-weight: 600;
-}
-
-.cta .btn-primary {
-  background: #fff;
-  color: #111;
-}
-
-.footer {
-  text-align: center;
-  padding: 2rem 0;
-  font-size: 0.85rem;
-  color: #777;
+.cta h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
 }
 
 @media (min-width: 768px) {
   .hero h1 {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
   }
 }

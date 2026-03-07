@@ -90,14 +90,27 @@ def process_once():
         else:
             log('Task failed.')
 
+    except Exception as e:
+        log(f'Unhandled exception: {str(e)}')
     finally:
         release_lock()
 
 
+def startup_cleanup():
+    # Remove stale lock file on startup
+    if os.path.exists(LOCK_FILE):
+        log('Stale lock detected on startup. Removing.')
+        os.remove(LOCK_FILE)
+
+
 def main():
+    startup_cleanup()
     log('Worker started.')
     while True:
-        process_once()
+        try:
+            process_once()
+        except Exception as loop_error:
+            log(f'Loop-level exception: {str(loop_error)}')
         time.sleep(INTERVAL)
 
 

@@ -5,32 +5,92 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Egolence</title>
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css" />
+<style>
+:root{--bg:#0B0B0D;--text:#fff;--muted:#9CA3AF;--accent:#B388FF;--border:rgba(255,255,255,0.08);}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Satoshi',sans-serif}
+.container{padding:0 56px}
+header{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
+.logo{font-weight:600;font-size:16px}
+.menu{width:20px;height:2px;background:#fff;position:relative}
+.menu::before,.menu::after{content:'';position:absolute;width:20px;height:2px;background:#fff;left:0}
+.menu::before{top:-6px}.menu::after{top:6px}
+.hero{text-align:center;padding:64px 0 32px}
+.preheadline{font-size:11px;color:var(--muted);margin-bottom:24px;letter-spacing:1px;text-transform:uppercase}
+h1{font-size:34px;line-height:1.08;margin:0 auto 24px;max-width:240px}
+.support{font-size:13px;color:var(--muted);max-width:220px;margin:0 auto 32px;line-height:1.6}
+.cta-group{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.btn{padding:6px 12px;border-radius:999px;font-weight:500;text-decoration:none;font-size:10px;height:28px;display:inline-flex;align-items:center;justify-content:center}
+.btn-primary{background:#fff;color:#000}
+.btn-secondary{border:1px solid rgba(255,255,255,0.15);color:var(--text)}
+.metrics-box{margin:0 auto 40px;padding:48px 32px;border-radius:16px;background:#0B0B0D;border:1px solid var(--border)}
+.metrics-title{text-align:center;margin-bottom:48px;color:var(--muted);font-size:11px;letter-spacing:1px;text-transform:uppercase}
+.metrics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;text-align:center}
+.metric-circle{width:50px;height:50px;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;background:radial-gradient(circle at center,#0B0B0D 60%,transparent 61%),conic-gradient(var(--accent) 0% 90%,rgba(255,255,255,0.05) 90% 100%)}
+.metric-label{margin-top:14px;font-size:9px;color:var(--muted);line-height:1.4}
+
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:80px}
+.column{display:flex;flex-direction:column;gap:6px}
+.gallery video{width:100%;object-fit:cover;border-radius:10px}
+.tall{aspect-ratio:9/16}
+.short{aspect-ratio:4/5}
+
+.split-section{padding:80px 56px;display:flex;flex-direction:row;gap:40px;background:#0B0B0D;align-items:center}
+.split-left{flex:1;display:flex;flex-direction:column;gap:16px}
+.split-eyebrow{font-size:12px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+.split-main-title{font-size:28px;font-weight:700;line-height:1.1}
+.split-h3{font-size:16px;font-weight:600;color:#ddd}
+.split-paragraph{font-size:13px;color:var(--muted);line-height:1.6}
+.split-visual{flex:1}
+.split-visual video{width:100%;aspect-ratio:9/16;border-radius:16px;object-fit:cover}
+
+@media(min-width:768px){
+.gallery{grid-template-columns:repeat(6,1fr);gap:10px}
+h1{font-size:64px;max-width:none}
+.support{max-width:520px}
+.metric-circle{width:130px;height:130px;font-size:30px}
+.metric-label{font-size:14px}
+.split-section{padding:120px 120px;gap:80px}
+.split-main-title{font-size:48px}
+}
+</style>
 </head>
 <body>
+<div class="container">
+<header><div class="logo">Egolence</div><div class="menu"></div></header>
+<section class="hero">
+<div class="preheadline">Authority Infrastructure</div>
+<h1>Your Authority.<br/>Everywhere.<br/>Installed Once.</h1>
+<div class="support">Turn your expertise into a scalable authority engine. Automated distribution. Compounding reach. Zero manual posting.</div>
+<div class="cta-group"><a href="#" class="btn btn-primary">Install Authority</a><a href="#" class="btn btn-secondary">See Proof</a></div>
+</section>
+<section class="metrics-box">
+<div class="metrics-title">Proven Performance</div>
+<div class="metrics-grid">
+<div><div class="metric-circle">620%</div><div class="metric-label">Reach Growth</div></div>
+<div><div class="metric-circle">4×</div><div class="metric-label">Inbound Messages</div></div>
+<div><div class="metric-circle">95%</div><div class="metric-label">Less Manual Posting</div></div>
+</div>
+</section>
+</div>
 
-<section class="section hero">
-  <div class="container">
-    <h1>Your Authority.<br/>Everywhere.<br/>Installed Once.</h1>
-    <div class="metrics">
-      <div>+620% Reach</div>
-      <div>3.4x DMs</div>
-      <div>95% Time Saved</div>
-    </div>
-  </div>
+<section class="gallery">
+<div class="column"><video class="tall" src="assets/dummy.mp4" autoplay muted loop playsinline></video><video class="short" src="assets/dummy.mp4" autoplay muted loop playsinline></video></div>
+<div class="column"><video class="short" src="assets/dummy.mp4" autoplay muted loop playsinline></video><video class="tall" src="assets/dummy.mp4" autoplay muted loop playsinline></video></div>
+<div class="column"><video class="tall" src="assets/dummy.mp4" autoplay muted loop playsinline></video><video class="short" src="assets/dummy.mp4" autoplay muted loop playsinline></video></div>
+<div class="column"><video class="short" src="assets/dummy.mp4" autoplay muted loop playsinline></video><video class="tall" src="assets/dummy.mp4" autoplay muted loop playsinline></video></div>
 </section>
 
-<section class="section">
-  <div class="container split-proof">
-    <div class="vertical-video">
-      <video src="../assets/proof/placeholder_vertical_video.mp4" muted loop autoplay></video>
-    </div>
-    <div>
-      <h2>AI Case Study</h2>
-      <p>From 0 to 600% reach in 30 days.</p>
-      <p>Proof of automated authority at scale.</p>
-    </div>
-  </div>
+<section class="split-section">
+<div class="split-left">
+<div class="split-eyebrow">Authority Automation</div>
+<div class="split-main-title">Install Once. Expand Everywhere.</div>
+<div class="split-h3">Your content becomes infrastructure.</div>
+<div class="split-paragraph">Automate distribution and multiply reach without increasing manual workload. Authority compounds daily.</div>
+<a href="#" class="btn btn-secondary">Explore the system</a>
+</div>
+<div class="split-visual">
+<video src="assets/dummy.mp4" autoplay muted loop playsinline></video>
+</div>
 </section>
 
 </body>

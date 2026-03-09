@@ -6,7 +6,7 @@
 <title>Workflow Component</title>
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
 <style>
-body{margin:0;background:#0B0B0D;color:#fff;font-family:'Satoshi',sans-serif;padding:80px}
+body{margin:0;background:#0B0B0D;color:#fff;font-family:'Satoshi',sans-serif;padding:40px}
 .section{max-width:1200px;margin:0 auto}
 .title{font-size:32px;margin-bottom:60px}
 .logic-strip{display:flex;align-items:center;justify-content:space-between;position:relative;margin-bottom:80px}
@@ -27,8 +27,8 @@ body{margin:0;background:#0B0B0D;color:#fff;font-family:'Satoshi',sans-serif;pad
   <div class="title">Authority Workflow Canvas</div>
 
   <div class="logic-strip">
-    <div class="step">01</div>
-    <div class="node active"></div>
+    <div class="step" style="color:#B388FF;">01</div>
+    <div class="node active" style="background:#B388FF;"></div>
     <div class="step">02</div>
     <div class="node"></div>
     <div class="step">03</div>
@@ -40,6 +40,9 @@ body{margin:0;background:#0B0B0D;color:#fff;font-family:'Satoshi',sans-serif;pad
     <div class="step">06</div>
   </div>
 
+  <div style="position:relative;">
+  <button onclick="this.parentNode.querySelector('.cards').scrollBy({left:-250,behavior:'smooth'})" style="position:absolute;left:-30px;top:40%;background:none;border:1px solid rgba(255,255,255,0.2);color:#fff;border-radius:50%;width:32px;height:32px;">‹</button>
+  <button onclick="this.parentNode.querySelector('.cards').scrollBy({left:250,behavior:'smooth'})" style="position:absolute;right:-30px;top:40%;background:none;border:1px solid rgba(255,255,255,0.2);color:#fff;border-radius:50%;width:32px;height:32px;">›</button>
   <div class="cards">
     <div class="card">
       <div class="small-number">01</div>

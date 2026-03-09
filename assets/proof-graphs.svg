@@ -1,0 +1,14 @@
+<!-- Egolence Custom Proof Graphs v1 | 2026-03-07T17:45:00Z -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="graph-revenue" viewBox="0 0 300 120">
+      <polyline fill="none" stroke="#5A2A5A" stroke-width="4" points="0,100 60,90 120,70 180,50 240,30 300,10" />
+    </symbol>
+    <symbol id="graph-audience" viewBox="0 0 300 120">
+      <polyline fill="none" stroke="#5A2A5A" stroke-width="4" points="0,110 60,95 120,85 180,60 240,40 300,25" />
+    </symbol>
+    <symbol id="graph-output" viewBox="0 0 300 120">
+      <polyline fill="none" stroke="#5A2A5A" stroke-width="4" points="0,20 60,35 120,50 180,70 240,90 300,105" />
+    </symbol>
+  </defs>
+</svg>

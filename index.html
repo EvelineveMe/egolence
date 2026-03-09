@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Egolence</title>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0B0B0D;--text:#fff;--muted:#9CA3AF;--accent:#B388FF;--border:rgba(255,255,255,0.08);}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Satoshi',sans-serif}
+.container{padding:0 56px}
+header{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
+.logo{font-weight:600;font-size:16px}
+.menu{width:20px;height:2px;background:#fff;position:relative}
+.menu::before,.menu::after{content:'';position:absolute;width:20px;height:2px;background:#fff;left:0}
+.menu::before{top:-6px}.menu::after{top:6px}
+.hero{text-align:center;padding:64px 0 32px}
+.preheadline{font-size:11px;color:var(--muted);margin-bottom:24px;letter-spacing:1px;text-transform:uppercase}
+h1{font-size:34px;line-height:1.08;margin:0 auto 24px;max-width:240px}
+.support{font-size:13px;color:var(--muted);max-width:220px;margin:0 auto 32px;line-height:1.6}
+.cta-group{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.btn{padding:6px 12px;border-radius:999px;font-weight:500;text-decoration:none;font-size:10px;height:28px;display:inline-flex;align-items:center;justify-content:center}
+.btn-primary{background:#fff;color:#000}
+.btn-secondary{border:1px solid rgba(255,255,255,0.15);color:var(--text)}
+.metrics-box{margin:0 auto 40px;padding:48px 32px;border-radius:16px;background:#0B0B0D;border:1px solid var(--border)}
+.metrics-title{text-align:center;margin-bottom:48px;color:var(--muted);font-size:11px;letter-spacing:1px;text-transform:uppercase}
+.metrics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;text-align:center}
+.metric-circle{width:50px;height:50px;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;background:radial-gradient(circle at center,#0B0B0D 60%,transparent 61%),conic-gradient(var(--accent) 0% 90%,rgba(255,255,255,0.05) 90% 100%)}
+.metric-label{margin-top:14px;font-size:9px;color:var(--muted);line-height:1.4}
+
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:16px}
+.column{display:flex;flex-direction:column;gap:6px}
+.gallery video{width:100%;object-fit:cover;border-radius:10px}
+.tall{aspect-ratio:9/16}
+.short{aspect-ratio:4/5}
+
+.split-section{padding:24px 56px 40px 56px;display:flex;flex-direction:row;gap:40px;background:#0B0B0D;align-items:center}
+.split-left{flex:1;display:flex;flex-direction:column;gap:16px}
+.split-eyebrow{font-size:12px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+.split-main-title{font-size:28px;font-weight:700;line-height:1.1}
+.split-h3{font-size:16px;font-weight:600;color:#ddd}
+.split-paragraph{font-size:13px;color:var(--muted);line-height:1.6}
+.split-visual{flex:1}
+.split-visual video{width:100%;aspect-ratio:9/16;border-radius:16px;object-fit:cover}
+
+@media(min-width:768px){
+.gallery{grid-template-columns:repeat(6,1fr);gap:10px}
+h1{font-size:64px;max-width:none}
+.support{max-width:520px}
+.metric-circle{width:130px;height:130px;font-size:30px}
+.metric-label{font-size:14px}
+.split-section{padding:120px 120px;gap:80px}
+.split-main-title{font-size:48px}
+}
+</style>
+</head>
+<body>
+<div class="container">
+<header><div class="logo">Egolence</div><div class="menu"></div></header>
+<section class="hero">
+<div class="preheadline">Authority Infrastructure</div>
+<h1>Your Authority.<br/>Everywhere.<br/>Installed Once.</h1>
+<div class="support">Turn your expertise into a scalable authority engine. Automated distribution. Compounding reach. Zero manual posting.</div>
+<div class="cta-group"><a href="#" class="btn btn-primary">Install Authority</a><a href="#" class="btn btn-secondary">See Proof</a></div>
+</section>
+<section class="metrics-box">
+<div class="metrics-title">Proven Performance</div>
+<div class="metrics-grid">
+<div><div class="metric-circle">620%</div><div class="metric-label">Reach Growth</div></div>
+<div><div class="metric-circle">4×</div><div class="metric-label">Inbound Messages</div></div>
+<div><div class="metric-circle">95%</div><div class="metric-label">Less Manual Posting</div></div>
+</div>
+</section>
+</div>
+
+<section class="gallery">
+<div class="column"><video class="tall" src="assets/dummy.mp4" autoplay muted loop playsinline></video><video class="short" src="assets/dummy.mp4" autoplay muted loop playsinline></video></div>
+<div class="column"><video class="short" src="assets/dummy.mp4" autoplay muted loop playsinline></video><video class="tall" src="assets/dummy.mp4" autoplay muted loop playsinline></video></div>
+<div class="column"><video class="tall" src="assets/dummy.mp4" autoplay muted loop playsinline></video><video class="short" src="assets/dummy.mp4" autoplay muted loop playsinline></video></div>
+<div class="column"><video class="short" src="assets/dummy.mp4" autoplay muted loop playsinline></video><video class="tall" src="assets/dummy.mp4" autoplay muted loop playsinline></video></div>
+</section>
+
+<section class="split-section">
+<div class="split-left">
+<div class="split-eyebrow">Authority Automation</div>
+<div class="split-main-title">Install Once. Expand Everywhere.</div>
+<div class="split-h3">Your content becomes infrastructure.</div>
+<div class="split-paragraph">Automate distribution and multiply reach without increasing manual workload. Authority compounds daily.</div>
+<a href="#" class="btn btn-secondary">Explore the system</a>
+</div>
+<div class="split-visual">
+<video src="assets/dummy.mp4" autoplay muted loop playsinline></video>
+</div>
+</section>
+
+<!-- Analytics Box (Upgraded, same background) -->
+<section class="analytics-section" style="padding:48px 56px 80px 56px;">
+  <div style="border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:48px;display:flex;flex-direction:column;gap:40px;">
+    <div>
+      <h3 style="font-size:26px;margin:0 0 12px 0;">Analytics & Growth Intelligence</h3>
+      <p style="color:#9CA3AF;font-size:14px;line-height:1.6;max-width:560px;margin:0 0 18px 0;">
+        Real‑time authority tracking across platforms. Measure distribution velocity, inbound growth, and audience expansion from one unified dashboard.
+      </p>
+      <a href="#" class="btn btn-secondary">Open dashboard</a>
+    </div>
+
+    <div style="border-top:1px solid rgba(255,255,255,0.06);padding-top:32px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:24px;font-size:12px;color:#9CA3AF;">
+        <span>Live Visitors <strong style="color:#fff;">319</strong></span>
+        <span>Unique <strong style="color:#fff;">1.7M</strong></span>
+        <span>Pageviews <strong style="color:#fff;">3.2M</strong></span>
+      </div>
+
+      <svg viewBox="0 0 600 200" style="width:100%;height:200px;">
+        <defs>
+          <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#B388FF" />
+            <stop offset="100%" stop-color="#6C5CE7" />
+          </linearGradient>
+          <linearGradient id="fillGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="rgba(179,136,255,0.3)" />
+            <stop offset="100%" stop-color="rgba(179,136,255,0)" />
+          </linearGradient>
+        </defs>
+
+        <path d="M0 150 C100 140, 150 120, 220 130 S350 80, 420 100 S520 40, 600 60 L600 200 L0 200 Z"
+              fill="url(#fillGradient)" />
+
+        <path d="M0 150 C100 140, 150 120, 220 130 S350 80, 420 100 S520 40, 600 60"
+              fill="none" stroke="url(#lineGradient)" stroke-width="3" stroke-linecap="round" />
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- Mirrored Split Section -->
+<section class="split-section" style="padding-top:40px;">
+  <div class="split-visual">
+    <video src="assets/dummy.mp4" autoplay muted loop playsinline></video>
+  </div>
+  <div class="split-left">
+    <div class="split-eyebrow">Distribution Layer</div>
+    <div class="split-main-title">Authority That Compounds</div>
+    <div class="split-h3">Turn reach into predictable growth.</div>
+    <div class="split-paragraph">Every piece of content feeds a larger system. Insights inform distribution, distribution fuels inbound, and inbound strengthens positioning.</div>
+    <a href="#" class="btn btn-secondary">See architecture</a>
+  </div>
+</section>
+
+
+<!-- Problem Section -->
+<section style="padding:100px 56px;display:flex;flex-direction:column;gap:24px;">
+  <h2 style="font-size:32px;margin:0;">Most experts stay invisible.</h2>
+  <p style="color:#9CA3AF;max-width:600px;">Manual posting, inconsistent reach, and no compounding distribution layer. Authority never scales without infrastructure.</p>
+  <div style="display:flex;flex-direction:column;gap:8px;color:#9CA3AF;font-size:14px;">
+    <div>• Posting manually across platforms</div>
+    <div>• Reach resets every time</div>
+    <div>• No authority flywheel</div>
+  </div>
+</section>
+
+<!-- How It Works (Premium Large Numerals) -->
+<section style="padding:120px 56px;display:flex;flex-direction:column;gap:60px;">
+  <h2 style="font-size:32px;margin:0;">How The Authority Engine Works</h2>
+
+  <div style="display:flex;flex-direction:column;gap:80px;">
+
+    <div style="position:relative;">
+      <div style="position:absolute;left:0;top:-40px;font-size:120px;font-weight:700;opacity:0.12;">01</div>
+      <div style="position:relative;">
+        <h3 style="margin:0 0 8px 0;font-size:22px;">Install</h3>
+        <p style="color:#9CA3AF;margin:0;max-width:520px;">Connect platforms, define positioning, and configure your authority infrastructure.</p>
+      </div>
+    </div>
+
+    <div style="position:relative;">
+      <div style="position:absolute;left:0;top:-40px;font-size:120px;font-weight:700;opacity:0.12;">02</div>
+      <div style="position:relative;">
+        <h3 style="margin:0 0 8px 0;font-size:22px;">Distribute</h3>
+        <p style="color:#9CA3AF;margin:0;max-width:520px;">Deploy content strategically across channels to maximize reach and positioning.</p>
+      </div>
+    </div>
+
+    <div style="position:relative;">
+      <div style="position:absolute;left:0;top:-40px;font-size:120px;font-weight:700;opacity:0.12;">03</div>
+      <div style="position:relative;">
+        <h3 style="margin:0 0 8px 0;font-size:22px;">Compound</h3>
+        <p style="color:#9CA3AF;margin:0;max-width:520px;">Inbound strengthens authority. Authority increases reach. The system compounds.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Authority Workflow Canvas (Productized) -->
+<section style="padding:120px 0;">
+  <div style="padding:0 56px;margin-bottom:40px;">
+    <h2 style="font-size:32px;margin:0;">Authority Workflow Canvas</h2>
+  </div>
+
+  <div style="overflow-x:auto;padding:0 56px;">
+    <div style="display:flex;align-items:flex-start;gap:24px;min-width:1100px;">
+
+      <div style="flex:0 0 200px;display:flex;flex-direction:column;gap:16px;">
+        <div style="border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:20px;">
+          <div style="font-size:11px;color:#9CA3AF;">01</div>
+          <div style="font-size:16px;margin:6px 0;">Intake</div>
+          <div style="font-size:12px;color:#9CA3AF;">Platform connection & data sync</div>
+        </div>
+        <video src="assets/dummy.mp4" autoplay muted loop playsinline style="width:100%;aspect-ratio:9/16;border-radius:12px;object-fit:cover;"></video>
+      </div>
+      <div style="align-self:center;color:#B388FF;font-size:18px;">→</div>
+
+      <div style="flex:0 0 200px;display:flex;flex-direction:column;gap:16px;">
+        <div style="border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:20px;">
+          <div style="font-size:11px;color:#9CA3AF;">02</div>
+          <div style="font-size:16px;margin:6px 0;">Identity Match</div>
+          <div style="font-size:12px;color:#9CA3AF;">Positioning calibration</div>
+        </div>
+        <video src="assets/dummy.mp4" autoplay muted loop playsinline style="width:100%;aspect-ratio:9/16;border-radius:12px;object-fit:cover;"></video>
+      </div>
+      <div style="align-self:center;color:#B388FF;font-size:18px;">→</div>
+
+      <div style="flex:0 0 220px;display:flex;flex-direction:column;gap:16px;">
+        <div style="border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:20px;">
+          <div style="font-size:11px;color:#9CA3AF;">03</div>
+          <div style="font-size:16px;margin:6px 0;">Content Engine</div>
+          <div style="font-size:12px;color:#9CA3AF;">Automated content distribution</div>
+        </div>
+        <video src="assets/dummy.mp4" autoplay muted loop playsinline style="width:100%;aspect-ratio:9/16;border-radius:12px;object-fit:cover;"></video>
+      </div>
+      <div style="align-self:center;color:#B388FF;font-size:18px;">→</div>
+
+      <div style="flex:0 0 200px;display:flex;flex-direction:column;gap:16px;">
+        <div style="border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:20px;">
+          <div style="font-size:11px;color:#9CA3AF;">04</div>
+          <div style="font-size:16px;margin:6px 0;">Analytics</div>
+          <div style="font-size:12px;color:#9CA3AF;">Performance & reach tracking</div>
+        </div>
+        <video src="assets/dummy.mp4" autoplay muted loop playsinline style="width:100%;aspect-ratio:9/16;border-radius:12px;object-fit:cover;"></video>
+      </div>
+      <div style="align-self:center;color:#B388FF;font-size:18px;">→</div>
+
+      <div style="flex:0 0 200px;display:flex;flex-direction:column;gap:16px;">
+        <div style="border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:20px;">
+          <div style="font-size:11px;color:#9CA3AF;">05</div>
+          <div style="font-size:16px;margin:6px 0;">Inbound</div>
+          <div style="font-size:12px;color:#9CA3AF;">Lead capture & growth</div>
+        </div>
+        <video src="assets/dummy.mp4" autoplay muted loop playsinline style="width:100%;aspect-ratio:9/16;border-radius:12px;object-fit:cover;"></video>
+      </div>
+      <div style="align-self:center;color:#B388FF;font-size:18px;">→</div>
+
+      <div style="flex:0 0 200px;display:flex;flex-direction:column;gap:16px;">
+        <div style="border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:20px;">
+          <div style="font-size:11px;color:#9CA3AF;">06</div>
+          <div style="font-size:16px;margin:6px 0;">Authority</div>
+          <div style="font-size:12px;color:#9CA3AF;">Positioning reinforcement</div>
+        </div>
+        <video src="assets/dummy.mp4" autoplay muted loop playsinline style="width:100%;aspect-ratio:9/16;border-radius:12px;object-fit:cover;"></video>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Proof Snapshots -->
+<section style="padding:100px 56px;display:flex;flex-direction:column;gap:32px;">
+  <h2 style="font-size:32px;margin:0;">Proof of Performance</h2>
+  <div style="display:flex;flex-direction:column;gap:16px;">
+    <div style="border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:24px;">+620% Reach Growth</div>
+    <div style="border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:24px;">4× Inbound Increase</div>
+    <div style="border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:24px;">95% Time Saved</div>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section style="padding:120px 56px;text-align:center;">
+  <h2 style="font-size:32px;margin:0 0 16px 0;">Install Your Authority Infrastructure</h2>
+  <a href="#" class="btn btn-primary">Apply for Access</a>
+</section>
+
+<!-- Footer -->
+<footer style="padding:80px 56px;border-top:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;gap:24px;">
+  <div style="font-weight:600;">Egolence</div>
+  <div style="display:flex;flex-wrap:wrap;gap:24px;font-size:13px;color:#9CA3AF;">
+    <a href="#" style="color:#9CA3AF;text-decoration:none;">About</a>
+    <a href="#" style="color:#9CA3AF;text-decoration:none;">System</a>
+    <a href="#" style="color:#9CA3AF;text-decoration:none;">Analytics</a>
+    <a href="#" style="color:#9CA3AF;text-decoration:none;">Contact</a>
+    <a href="#" style="color:#9CA3AF;text-decoration:none;">Privacy</a>
+  </div>
+  <div style="font-size:12px;color:#666;">© 2026 Egolence. All rights reserved.</div>
+</footer>
+
+</body>
+</html>

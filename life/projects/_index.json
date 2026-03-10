@@ -1,4 +1,6 @@
 [
   "autonomy-infrastructure-setup",
-  "egolence"
+  "egolence",
+  "executor-autonomy"
 ]
+\n  "slack-execution-grid"

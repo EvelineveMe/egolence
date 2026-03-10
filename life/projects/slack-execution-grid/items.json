@@ -1,0 +1,18 @@
+[
+  {
+    "id": "fx_2026-03-10T21:05:00Z_init",
+    "ts": "2026-03-10T21:05:00Z",
+    "type": "decision",
+    "subject": "Slack Execution Grid",
+    "predicate": "status",
+    "object": "project_promoted",
+    "status": "active",
+    "supersedes": [],
+    "source": {
+      "channel": "telegram",
+      "chat_id": "8464691483",
+      "message_id": "4246"
+    },
+    "confidence": 1.0
+  }
+]

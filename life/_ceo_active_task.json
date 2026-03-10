@@ -1,1 +1,6 @@
-{"active": false}
+{
+  "active": false,
+  "project": "dummy-chain",
+  "commands": [],
+  "completed_at": "2026-03-07T16:08:48.316881"
+}

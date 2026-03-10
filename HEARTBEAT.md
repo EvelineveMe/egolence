@@ -120,3 +120,11 @@ Execution.
 Leverage.  
 Stability.  
 Compounding.
+
+---
+## 🔎 Drift Detection
+
+On every heartbeat:
+- Run: git status --porcelain
+- If non-empty → alert "UNCOMMITTED STATE DETECTED"
+- No silent dirty working trees allowed.

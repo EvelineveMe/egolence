@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Framer Hero – Structured Rebuild</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:"Satoshi","Inter",-apple-system,BlinkMacSystemFont,sans-serif;
+  background:#0e0e10;
+  color:#fff;
+  -webkit-font-smoothing:antialiased;
+}
+.wrapper{
+  max-width:1100px;
+  margin:0 auto;
+  padding:0 24px;
+}
+header{
+  padding:32px 0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  color:#b3b3b8;
+  font-size:14px;
+}
+header nav a{
+  margin-left:32px;
+  text-decoration:none;
+  color:#b3b3b8;
+}
+.hero{
+  padding-top:140px;
+  padding-bottom:60px;
+  text-align:center;
+  background:radial-gradient(circle at 50% 5%,#1a1a22 0%,#0e0e10 65%);
+}
+.eyebrow{
+  font-size:14px;
+  color:#a1a1aa;
+  margin-bottom:28px;
+}
+.hero h1{
+  font-size:104px;
+  font-weight:800;
+  line-height:1.02;
+  letter-spacing:-3px;
+}
+.hero p{
+  font-size:20px;
+  color:#a1a1aa;
+  max-width:680px;
+  margin:32px auto 48px;
+  line-height:1.6;
+}
+.cta-row{
+  display:flex;
+  justify-content:center;
+  gap:16px;
+  margin-bottom:100px;
+}
+.btn{
+  padding:16px 34px;
+  border-radius:999px;
+  font-weight:600;
+  font-size:16px;
+  border:none;
+}
+.btn-primary{background:#fff;color:#000}
+.btn-secondary{background:#1c1c22;color:#fff}
+.gallery{
+  display:flex;
+  justify-content:center;
+  gap:24px;
+}
+.thumb{
+  width:360px;
+  height:220px;
+  border-radius:16px;
+  background:#1a1a20;
+  box-shadow:0 40px 100px rgba(0,0,0,0.7);
+}
+@media(max-width:900px){
+  .hero h1{font-size:64px}
+  .gallery{flex-direction:column;align-items:center}
+  .thumb{width:90%}
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+<header>
+<div>Framer</div>
+<nav>
+<a href="#">Features</a>
+<a href="#">Templates</a>
+<a href="#">Pricing</a>
+<a href="#">Login</a>
+</nav>
+</header>
+</div>
+<section class="hero">
+<div class="wrapper">
+<div class="eyebrow">3 weeks ago: Dynamic Filters in the CMS</div>
+<h1>Build better<br>sites, faster</h1>
+<p>Framer is a web builder for creative pros. Be inspired and build faster with AI-powered layouts, modern templates, and powerful CMS tools.</p>
+<div class="cta-row">
+<button class="btn btn-primary">Start for free</button>
+<button class="btn btn-secondary">Start with AI</button>
+</div>
+<div class="gallery">
+<div class="thumb"></div>
+<div class="thumb"></div>
+<div class="thumb"></div>
+</div>
+</div>
+</section>
+</body>
+</html>

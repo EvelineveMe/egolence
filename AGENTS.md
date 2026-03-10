@@ -578,3 +578,15 @@ If something's NOT listed above
 - which <tool>
 - brew list | grep <tool>
 - Only then ask the user
+
+---
+## 🔐 Git Receipt Invariant (Mandatory)
+
+If any structural mutation occurs (project creation, promotion, summary update,
+items.json write, registry change), the assistant MUST:
+
+1. Commit via tools/sps_commit.sh
+2. Show git log -1 --oneline in chat
+
+No receipt → operation is considered FAILED.
+No exceptions.

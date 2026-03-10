@@ -1,18 +1,31 @@
-# LIVE JOURNAL — 2026-03-05
+# LIVE JOURNAL — APPEND ONLY
 
-08:57Z — Live Journal system installed.
+2026-03-10T14:52Z — SYSTEM — Live journal initialized
+- Purpose: real-time operational logging
+- Rule: append-only, timestamped, categorized entries
+- Trigger: Founder request for continuous forensic logging
 
----
+2026-03-10T14:53Z — DECISION — Implement dual-layer memory system (Live + Daily Summary)
+- Live journal: memory/_live_journal.md
+- Daily summary: memory/YYYY-MM-DD.md
+- Logging policy: immediate logging after meaningful actions
+- Reason: eliminate perceived execution drift and restore trust in operational continuity
 
-(Entries appended throughout the day. Do not curate. Raw capture layer.)
+2026-03-10T14:54Z — STRATEGY — Executor project set to dormant infrastructure state
+- Remains active in registry
+- Removed from primary execution focus
+- Focus shift: Egolence website finalization (deadline: tonight)
 
-07:07Z — DECISION — Real-time journal enforcement activated.
-07:03Z — DECISION — Homepage direction rejected; must position for women building autonomy-based businesses.
-07:04Z — ACTION — Egolence build agent stopped due to positioning misalignment.
-07:12Z — STRUCTURE — Strategic State Layer installed (strategy.md created for Egolence).
-07:21Z — STRUCTURE — Canonical version vault created for Egolence.
-07:21Z — OVERRIDE — EXECUTE command received. Awaiting approved positioning artifact before restarting build agent.
-07:31Z — STRUCTURE — Mandatory Strategy Read Gate installed and enforced in AGENTS.md.
-07:41Z — STRUCTURE — Final Integrity Layer installed. 05:30 UTC daily report scheduled.
-08:18Z — ASSET — Egolence presentation stored as canonical artifact. Case studies extracted to separate versioned file.
-08:44Z — ASSET — Egolence Website V1 Production Spec stored as canonical artifact.
+2026-03-10T15:16Z — INFRA_FACT_LOCK — Egolence repo + deploy target recorded
+- GitHub: https://github.com/EvelineveMe/egolence
+- Production: https://egolence.vercel.app/
+- Stored in: life/projects/egolence/items.json
+- Stored in: life/projects/egolence/summary.md
+- Intent: eliminate future redeployment ambiguity
+
+2026-03-10T15:32Z — ARCHITECTURE_RULE — Executor repo set as single canonical production source
+- Rule: Production sites live only in executor clone
+- Workspace copies must be archived, never parallel-edited
+- Legacy indexes archived, never deleted
+- Screenshot sprawl moved to project archives
+- Intent: prevent split-brain deployments in future projects

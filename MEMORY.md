@@ -118,6 +118,16 @@ But stability precedes scale.
 
 ---
 
+## Infrastructure Standards (Permanent Rules)
+
+- Production websites must have a single canonical source (executor clone or equivalent).
+- Workspace copies are for strategy and archives only — never parallel production roots.
+- Legacy live files are archived, never deleted blindly.
+- No split-brain deployment architectures (one repo → one deploy pipeline).
+- All production links (GitHub, deploy URL) must be stored in project items.json + summary.md.
+
+---
+
 ## Escalation Boundaries
 
 Escalate to founder when:

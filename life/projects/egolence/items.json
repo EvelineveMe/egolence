@@ -1,18 +1,42 @@
 [
   {
-    "id": "fx_2026-03-06T07:05:00Z_multipage_scaffold",
-    "ts": "2026-03-06T07:05:00Z",
+    "id": "fx_2026-03-07T23:00:00Z_applydraft",
+    "ts": "2026-03-07T23:00:00Z",
     "type": "fact",
-    "subject": "Egolence website",
-    "predicate": "status",
-    "object": "Multi-page static scaffold created (5 core pages)",
+    "subject": "Egolence Apply Page",
+    "predicate": "structure",
+    "object": "Qualification-first flow drafted: problem framing → readiness filter → commitment threshold → short application form",
     "status": "active",
     "supersedes": [],
     "source": {
       "channel": "system",
-      "chat_id": "heartbeat",
-      "message_id": "cron-91a4789a"
+      "chat_id": "cron",
+      "message_id": "91a4789a-6394-4c5b-8ebc-cdf966184dc4"
     },
+    "confidence": 1.0
+  },
+  {
+    "id": "fx_2026-03-10T15:15:00Z_repo",
+    "ts": "2026-03-10T15:15:00Z",
+    "type": "fact",
+    "subject": "Egolence website",
+    "predicate": "github_repo",
+    "object": "https://github.com/EvelineveMe/egolence",
+    "status": "active",
+    "supersedes": [],
+    "source": {"channel": "telegram", "chat_id": "8464691483", "message_id": "4072"},
+    "confidence": 1.0
+  },
+  {
+    "id": "fx_2026-03-10T15:15:10Z_vercel",
+    "ts": "2026-03-10T15:15:10Z",
+    "type": "fact",
+    "subject": "Egolence website",
+    "predicate": "deploy_target",
+    "object": "https://egolence.vercel.app/ (auto-deploy from GitHub)",
+    "status": "active",
+    "supersedes": [],
+    "source": {"channel": "telegram", "chat_id": "8464691483", "message_id": "4072"},
     "confidence": 1.0
   }
 ]

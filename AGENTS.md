@@ -590,3 +590,12 @@ items.json write, registry change), the assistant MUST:
 
 No receipt → operation is considered FAILED.
 No exceptions.
+
+---
+## 📓 Journal Rollover Rule (Midnight UTC)
+
+- Daily journal closes at 00:00 UTC.
+- If work continues past 00:00 UTC:
+  - Create memory/YYYY-MM-DD.md for the new day (if not exists).
+  - Continue logging in the new day's file.
+- No writing into previous day after 00:00 UTC.

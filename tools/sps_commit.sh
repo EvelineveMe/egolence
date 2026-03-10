@@ -6,7 +6,8 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
-if git diff --quiet && git diff --cached --quiet; then
+# Detect any change including untracked
+if [ -z "$(git status --porcelain)" ]; then
   echo "No changes to commit. Aborting."
   exit 1
 fi
@@ -14,6 +15,7 @@ fi
 MSG="$1"
 
 git add -A
+
 git commit -m "$MSG"
 
 echo "--- RECEIPT ---"

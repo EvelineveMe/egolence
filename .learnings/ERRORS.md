@@ -1,28 +1,26 @@
 # ERRORS.md
 
-## [ERR-20260309-001] standalone_continuous_worker
+## [ERR-20260311-001] daily-close-cron
 
-**Logged**: 2026-03-09T00:39:00Z
+**Logged**: 2026-03-11T07:37:00Z
 **Priority**: high
 **Status**: pending
 **Area**: infra
 
 ### Summary
-Standalone continuous worker does not run reliably and conflicts with cron-based heartbeat system.
+Daily close cron failed due to missing delivery.channel when multiple channels configured.
 
 ### Error
-Non-deterministic behavior: worker either not executing, duplicating execution, or being superseded by cron-triggered jobs.
+Channel is required when multiple channels are configured: telegram, slack.
 
 ### Context
-Attempted to introduce a persistent autonomous worker while cron-based scheduled agents were still active. No mutual exclusion, no single state controller, no execution contract.
+Cron job 13e5c0f5-c81c-4cd7-b58b-652ea5e5db28 attempted to announce without explicit channel.
 
 ### Suggested Fix
-- Disable experimental worker completely until architectural decision is made.
-- Audit active cron jobs and background agents.
-- Create documented execution model before reintroducing persistent worker.
+Always set delivery.channel explicitly in cron jobs.
 
 ### Metadata
 - Reproducible: yes
-- Tags: autonomy, scheduler, conflict
+- Related Files: cron job configuration
 
 ---

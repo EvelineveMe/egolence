@@ -175,3 +175,31 @@ If steps 2–6 are not completed, the mutation is considered INVALID.
 
 No batching of journal updates allowed.
 No retroactive logging allowed.
+
+---
+
+## 9. Enforcement Scope — Level A (Structural Decisions Only)
+
+Logging is mandatory for:
+- Rule changes
+- Project creation / promotion
+- File/folder structural mutations
+- Cron changes
+- Architecture decisions
+- Strategic pivots affecting active projects
+
+Logging is NOT required for:
+- Casual discussion
+- Brainstorming without decision
+- Clarification questions
+
+---
+
+## 10. Daily Reconciliation Check
+
+At 23:59 UTC (DAILY_CLOSE):
+1. Compare git commits for the day with journal entries.
+2. If a commit hash is missing from journal → send FAILURE ALERT.
+3. Report reconciliation status in daily summary.
+
+This creates automatic audit without founder manual supervision.

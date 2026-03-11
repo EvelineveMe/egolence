@@ -132,3 +132,27 @@ Rules:
 
 Journal files are append-only for the day.
 No retroactive reconstruction allowed.
+
+---
+
+### Journal Entry Detail Standard
+
+Each entry must include:
+
+- Timestamp (UTC)
+- Category (RULE | CRON | FILE | PROJECT | DECISION | INCIDENT | SESSION | HEARTBEAT)
+- What changed
+- Why it changed
+- Files affected (full relative paths)
+- Git commit hash (if applicable)
+- Impact assessment (Strategic | Structural | Operational)
+
+Example format:
+
+07:02Z | RULE | Added Action-Verification Rule
+Why: Prevent narrative-only confirmations.
+Files: SYSTEM_ARCHITECTURE_RULES.md
+Git: b76030c
+Impact: Structural
+
+Minimal one-line entries are prohibited for structural events.

@@ -203,3 +203,22 @@ At 23:59 UTC (DAILY_CLOSE):
 3. Report reconciliation status in daily summary.
 
 This creates automatic audit without founder manual supervision.
+
+---
+
+## 11. Raw Transcript Logging Protocol
+
+All inbound and outbound messages must be appended to:
+
+memory/YYYY-MM-DD.raw.md
+
+Format:
+- UTC Timestamp
+- Role (USER | ASSISTANT)
+- message_id when available
+- Full unmodified message text
+
+Raw log is immutable and append-only.
+Structured journal entries are derived from raw log, not from memory reconstruction.
+
+If raw log file does not exist for the day, it must be created before any further response.

@@ -1,47 +1,70 @@
 # LEARNINGS.md
 
-## [LRN-20260311-001] correction
+## [LRN-20260311-003] knowledge_gap
 
-**Logged**: 2026-03-11T07:37:00Z
-**Priority**: high
+**Logged**: 2026-03-11T07:59:00Z
+**Priority**: critical
 **Status**: pending
 **Area**: infra
 
 ### Summary
-Claimed enforcement without mechanical coupling; journaling gaps exposed by founder.
+Raw transcript logging is rule-based, not infrastructure-hook based.
 
 ### Details
-Multiple instances where structural rule changes were committed but not immediately logged in the daily journal. Founder identified mismatch between declared protocol and actual logging behavior.
+Current implementation appends to raw log via assistant behavior. There is no guaranteed automatic interception at message-handler level. If assistant logic fails, raw logging can silently stop.
 
 ### Suggested Action
-Enforce Mutation Coupling Sequence strictly and add daily reconciliation check.
+Implement logging at transport layer (Telegram inbound/outbound hook) instead of conversational layer.
 
 ### Metadata
-- Source: user_feedback
-- Related Files: SYSTEM_ARCHITECTURE_RULES.md, memory/2026-03-11.md
-- Tags: integrity, journaling, enforcement
+- Source: audit
+- Related Files: memory/YYYY-MM-DD.raw.md
+- Tags: logging, integrity, automation
 
 ---
 
-## [LRN-20260311-002] best_practice
+## [LRN-20260311-004] best_practice
 
-**Logged**: 2026-03-11T07:37:00Z
+**Logged**: 2026-03-11T07:59:00Z
 **Priority**: high
 **Status**: pending
 **Area**: infra
 
 ### Summary
-Daily summary cannot function without continuous journal bootstrap.
+Daily reconciliation rule exists but reconciliation logic not implemented.
 
 ### Details
-Cron-based daily summary failed after session reset because no daily journal existed. Reconstruction is lossy and undermines system trust.
+SYSTEM_ARCHITECTURE_RULES.md defines reconciliation between git commits and journal entries. DAILY_CLOSE cron does not yet perform actual commit hash verification.
 
 ### Suggested Action
-Mandatory daily bootstrap + heartbeat verification + reconciliation against git.
+Modify DAILY_CLOSE routine to programmatically compare `git log --since=today` with journal commit references.
 
 ### Metadata
-- Source: conversation
-- Related Files: memory/YYYY-MM-DD.md, SYSTEM_ARCHITECTURE_RULES.md
-- Tags: journaling, automation, reliability
+- Source: audit
+- Related Files: SYSTEM_ARCHITECTURE_RULES.md
+- Tags: reconciliation, audit
+
+---
+
+## [LRN-20260311-005] best_practice
+
+**Logged**: 2026-03-11T07:59:00Z
+**Priority**: medium
+**Status**: pending
+**Area**: infra
+
+### Summary
+Raw log has no integrity checksum or external backup.
+
+### Details
+If workspace is corrupted or deleted, raw transcript layer is lost. No offsite or append-only guarantee beyond git.
+
+### Suggested Action
+Implement periodic hash snapshot or remote mirror backup.
+
+### Metadata
+- Source: audit
+- Related Files: memory/YYYY-MM-DD.raw.md
+- Tags: backup, resilience
 
 ---

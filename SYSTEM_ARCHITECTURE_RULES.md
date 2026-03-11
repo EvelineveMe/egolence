@@ -105,3 +105,30 @@ Rules:
 - If no tool call occurred, the system must say: "Not executed yet." 
 
 This rule is mandatory and overrides conversational convenience.
+
+---
+
+## 7. Journal Enforcement Protocol
+
+Daily Journal Location:
+memory/YYYY-MM-DD.md
+
+Rules:
+1. At first founder interaction of each UTC day:
+   - If memory/YYYY-MM-DD.md does not exist → create immediately.
+   - Append SESSION_START entry with timestamp.
+
+2. Every structural mutation (file write/edit/delete, cron change, project creation):
+   - Append timestamped entry to memory/YYYY-MM-DD.md.
+   - Append entry to memory/_execution_log.md.
+   - Commit via git.
+
+3. Daily Close (23:59 UTC cron):
+   - Must summarize ONLY from memory/YYYY-MM-DD.md.
+   - If journal does not exist → abort and send failure alert.
+
+4. Heartbeat must verify journal existence.
+   - If missing → create + log HEARTBEAT_BOOTSTRAP.
+
+Journal files are append-only for the day.
+No retroactive reconstruction allowed.

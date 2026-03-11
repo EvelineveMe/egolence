@@ -156,3 +156,22 @@ Git: b76030c
 Impact: Structural
 
 Minimal one-line entries are prohibited for structural events.
+
+---
+
+## 8. Mutation Coupling Sequence (Mechanical Enforcement)
+
+For every structural tool call (write/edit/delete/cron update/project creation):
+
+Mandatory sequence:
+1. Perform mutation.
+2. Immediately append detailed entry to memory/YYYY-MM-DD.md.
+3. Append to memory/_execution_log.md.
+4. git add affected files.
+5. git commit with descriptive message.
+6. Display git receipt (git log -1 --stat).
+
+If steps 2–6 are not completed, the mutation is considered INVALID.
+
+No batching of journal updates allowed.
+No retroactive logging allowed.
